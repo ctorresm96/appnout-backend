@@ -5,18 +5,18 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserDetail } from '../user-detail/entities/user-detail.entity';
+import { UserRepository } from './user.repository';
+import { UserDetailRepository } from '../user-detail/user-detail.repository';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User) private userRepo: Repository<User>,
-    @InjectRepository(UserDetail)
-    private userDetailRepo: Repository<UserDetail>,
+    @InjectRepository(UserRepository) private userRepo: UserRepository,
+    @InjectRepository(UserDetailRepository)
+    private userDetailRepo: UserDetailRepository,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
-    console.log(createUserDto);
-
     const user = new User();
     user.username = createUserDto.username;
     user.password = createUserDto.password;
@@ -37,7 +37,9 @@ export class UserService {
     return this.userRepo.find();
   }
 
-  async findOne(id: number) {}
+  async findOne(id: string): Promise<User> {
+    return await this.userRepo.findOne(id, { relations: ['notes'] });
+  }
 
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;

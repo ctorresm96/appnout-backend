@@ -1,9 +1,19 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Note } from 'src/entities/note/entities/note.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  JoinColumn,
+} from 'typeorm';
 
 @Entity({ name: 'TBL_USER' })
 export class User {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn()
   id: string;
+
+  @OneToMany(() => Note, (note) => note.user)
+  notes: Note[];
 
   @Column({ unique: true })
   username: string;
