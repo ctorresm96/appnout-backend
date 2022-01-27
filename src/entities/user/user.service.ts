@@ -39,7 +39,7 @@ export class UserService {
     return await this.userRepo.findOne(id, { relations: ['notes'] });
   }
 
-  async findAllNotesById(id: number): Promise<User> {
+  async findAllNotesById(id: string): Promise<User> {
     return await this.userRepo.findOne(id, { relations: ['notes'] });
   }
 
