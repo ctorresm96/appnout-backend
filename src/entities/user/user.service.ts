@@ -5,15 +5,13 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserDetail } from '../user-detail/entities/user-detail.entity';
-import { UserRepository } from './user.repository';
-import { UserDetailRepository } from '../user-detail/user-detail.repository';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(UserRepository) private userRepo: UserRepository,
-    @InjectRepository(UserDetailRepository)
-    private userDetailRepo: UserDetailRepository,
+    @InjectRepository(User) private userRepo: Repository<User>,
+    @InjectRepository(UserDetail)
+    private userDetailRepo: Repository<UserDetail>,
   ) {}
 
   async create(createUserDto: CreateUserDto) {
@@ -37,7 +35,11 @@ export class UserService {
     return this.userRepo.find();
   }
 
-  async findOne(id: string): Promise<User> {
+  async findOne(id: number): Promise<User> {
+    return await this.userRepo.findOne(id, { relations: ['notes'] });
+  }
+
+  async findAllNotesById(id: number): Promise<User> {
     return await this.userRepo.findOne(id, { relations: ['notes'] });
   }
 

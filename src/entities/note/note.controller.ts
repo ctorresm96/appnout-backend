@@ -14,16 +14,11 @@ import { UserService } from '../user/user.service';
 
 @Controller('note')
 export class NoteController {
-  constructor(
-    private readonly noteService: NoteService,
-    private userService: UserService
-  ) {}
+  constructor(private readonly noteService: NoteService) {}
 
   @Post()
   async create(@Body() createNoteDto: CreateNoteDto) {
-    const user = await this.userService.findOne(createNoteDto.user_id)
-    console.log(user)
-    return this.noteService.create(createNoteDto, user);
+    return this.noteService.create(createNoteDto);
   }
 
   @Get()
