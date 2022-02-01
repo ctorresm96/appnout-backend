@@ -10,8 +10,8 @@ export class Category {
   @ManyToOne(() => Board, (x) => x.id)
   board: Board;
 
-  @ManyToOne(() => CategoryType, (x) => x.id)
-  category_type: CategoryType;
+  @Column({ nullable: false })
+  category_type_id: number;
 
   @Column({ default: new Date() })
   created_date: Date;
@@ -20,5 +20,5 @@ export class Category {
   name: string;
 
   @Column({ default: true })
-  description: boolean;
+  description: string;
 }

@@ -1,5 +1,5 @@
 export class CreateBoardDto {
-  user_id: number;
+  user_id: string;
   img: string;
   name: string;
 }

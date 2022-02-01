@@ -22,5 +22,5 @@ export class Board {
   name: string;
 
   @Column()
-  created_by: number;
+  created_by: string;
 }
