@@ -1,5 +1,4 @@
 import { Board } from 'src/entities/board/entities/board.entity';
-import { CategoryType } from 'src/entities/category-type/entities/category-type.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'TBL_CATEGORY' })

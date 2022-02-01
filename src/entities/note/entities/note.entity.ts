@@ -9,6 +9,9 @@ export class Note {
   @ManyToOne(() => User, (user) => user.notes)
   user: User;
 
+  @Column()
+  category_id: number;
+
   @Column({ default: new Date() })
   created_date: Date;
 

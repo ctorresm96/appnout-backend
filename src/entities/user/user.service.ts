@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Repository } from 'typeorm';
@@ -40,7 +40,9 @@ export class UserService {
   }
 
   async findAllNotesById(id: string): Promise<User> {
-    return await this.userRepo.findOne(id, { relations: ['notes'] });
+    const notes = await this.userRepo.findOne(id, { relations: ['notes'] });
+    if (!notes) throw new HttpException('El usuario no existe', 404);
+    return notes;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

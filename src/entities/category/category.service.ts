@@ -34,8 +34,13 @@ export class CategoryService {
     return `This action returns all category`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
+  async findOne(id: number) {
+    const category = await this.categoryRepo.findOne({
+      where: { id },
+    });
+
+    if (!category) throw new HttpException('La categoría no existe', 404);
+    return category;
   }
 
   update(id: number, updateCategoryDto: UpdateCategoryDto) {
