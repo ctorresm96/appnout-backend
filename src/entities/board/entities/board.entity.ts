@@ -1,13 +1,26 @@
 import { Note } from 'src/entities/note/entities/note.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { User } from 'src/entities/user/entities/user.entity';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToMany,
+  JoinTable,
+} from 'typeorm';
 
 @Entity({ name: 'TBL_BOARD' })
 export class Board {
   @PrimaryGeneratedColumn()
   id: string;
 
-  //   @OneToMany(() => Note, (note) => note.user)
-  //   notes: Note[];
+  @ManyToMany(() => User)
+  @JoinTable({
+    name: 'TBL_USER_BOARD',
+    joinColumn: { name: 'board_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'user_id', referencedColumnName: 'id' },
+  })
+  users: User[];
 
   @Column({ default: 1 })
   status: number;

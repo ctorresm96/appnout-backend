@@ -35,7 +35,7 @@ export class UserService {
     return this.userRepo.find();
   }
 
-  async findOne(id: number): Promise<User> {
+  async findOne(id: string): Promise<User> {
     return await this.userRepo.findOne(id, { relations: ['notes'] });
   }
 

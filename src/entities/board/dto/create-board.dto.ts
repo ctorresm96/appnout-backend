@@ -1,5 +1,6 @@
 export class CreateBoardDto {
-  user_id: string;
+  created_by: string;
+  users_id: string[];
   img: string;
   name: string;
 }
