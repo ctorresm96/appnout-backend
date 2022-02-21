@@ -7,16 +7,11 @@ import { BoardModule } from './entities/board/board.module';
 import { CategoryModule } from './entities/category/category.module';
 import { CategoryTypeModule } from './entities/category-type/category-type.module';
 import { AuthModule } from './auth/auth.module';
-import * as ormconfig from './ormconfig';
 import { AppController } from './app.controller';
-
+import { configService } from './ormconfig';
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      ...ormconfig,
-      keepConnectionAlive: true,
-      autoLoadEntities: true,
-    }),
+    TypeOrmModule.forRoot({ ...configService.getTypeOrmConfig() }),
     NoteModule,
     UserModule,
     UserDetailModule,
