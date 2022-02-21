@@ -6,7 +6,9 @@ import { NoteModule } from './entities/note/note.module';
 import { BoardModule } from './entities/board/board.module';
 import { CategoryModule } from './entities/category/category.module';
 import { CategoryTypeModule } from './entities/category-type/category-type.module';
+import { AuthModule } from './auth/auth.module';
 import * as ormconfig from './ormconfig';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import * as ormconfig from './ormconfig';
     BoardModule,
     CategoryModule,
     CategoryTypeModule,
-  ]
+    AuthModule,
+  ],
+  controllers: [AppController],
 })
 export class AppModule {}

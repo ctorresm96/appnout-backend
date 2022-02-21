@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserDetail } from '../user-detail/entities/user-detail.entity';
+import { LoginUserDto } from './dto/login-dto';
 
 @Injectable()
 export class UserService {
@@ -37,6 +38,13 @@ export class UserService {
 
   async findOne(id: string): Promise<User> {
     return await this.userRepo.findOne(id, { relations: ['notes'] });
+  }
+
+  async findOneByUsername(username: string): Promise<any> {
+    return await this.userRepo
+      .createQueryBuilder('user')
+      .where('user.username = :username', { username: username })
+      .getOne();
   }
 
   async findAllNotesById(id: string): Promise<User> {
